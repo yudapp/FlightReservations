@@ -1,3 +1,9 @@
+/**
+ * Data class 
+ * Seat.java
+ * @author Yudhi
+ */
+
 package com.airplanes.reservations;
 
 public class Seat {

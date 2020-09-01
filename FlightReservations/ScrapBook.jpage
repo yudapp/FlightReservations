@@ -1,3 +1,8 @@
- ArrayList<String> names = new ArrayList<>();
- names.add("one");
- System.out.println(names.size());
+ Database testDB = new Database();
+testDB.bootstrap();
+testDB.addPassenger("Yudhi");
+String result = testDB.addTicket(LocalDate.now(), "Yudhi", 1000, 1);
+System.out.println(result);
+
+ArrayList<Seat> seatsRemaining = testDB.getOpenSeats(LocalDate.now(), 1000);
+System.out.println(seatsRemaining);

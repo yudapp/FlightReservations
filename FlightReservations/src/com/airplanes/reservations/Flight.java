@@ -1,4 +1,4 @@
-/**
+/**Data class
  * Flight.java
  * @author YA
  * 
