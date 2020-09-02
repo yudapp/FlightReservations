@@ -3,6 +3,7 @@
  * @author Yudhi
  * Book a ticket: Run this class in the console or create a jar file to run in the terminal
  * TODO: implement methods to advise user when there is no more ticket left.
+ * custom logger create in Database.java and global logger tested in line 62. turn global logger off in Database.setLogging()
  */
 
 package com.airplanes.reservations;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
   
 public class Console {
@@ -21,6 +23,7 @@ public class Console {
 		
 		Database prodDB = new Database();
 		prodDB.bootstrap();
+		prodDB.setLogging(); // initialise logger created in class Database
 		
 		boolean always = true;
 		BufferedReader screenInput = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +61,8 @@ public class Console {
 			} catch (IOException e) {
 				System.out.println("Enter a flight number");
 			} catch( NumberFormatException e) {
-				System.out.println("You did not enter a number");
+				Logger.getGlobal().warning("Flight must be an integer");
+				//System.out.println("You did not enter a number");
 			}
 			
 			//check for seats

@@ -44,7 +44,7 @@ public class TicketTest {
 	    testTicket4.setPassenger(testPassenger0);
 	    testTicket4.setFlight(testFlight0);
 	    testTicket4.setSeat(testSeat0);
-	    String testString = "Ticket: Boby departing on flight 100 from London to Paris on 2020-09-02 in seat 3";
+	    String testString = "Ticket: Boby departing on flight 100 from London to Paris on 2016-07-02 in seat 3";
 	    assertEquals(testString, testTicket4.toString());
 
 	}

@@ -5,8 +5,17 @@
  */
 package com.airplanes.reservations;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Database {
 
@@ -14,12 +23,25 @@ public class Database {
 	private ArrayList<Passenger> passengers;
 	private ArrayList<Flight> flights;
 	private ArrayList<Ticket> tickets;
+	//create logger and Database.setLogging(). Initialise in Console.java and use it in Database.addTicketMethod()
+	//get package and class name if class moves.
+	private static Logger databaseLog = Logger.getLogger(Database.class.getName());
+	//create handler
+	private static ConsoleHandler logScreen = new ConsoleHandler();
+	
 
 	public Database() {
 		seats = new ArrayList<Seat>();
 		passengers = new ArrayList<Passenger>();
 		flights = new ArrayList<Flight>();
 		tickets = new ArrayList<Ticket>();
+	}
+	
+	public void setLogging() {
+		databaseLog.addHandler(logScreen);
+		databaseLog.setLevel(Level.OFF); //receive all messages of fine and above
+		logScreen.setLevel(Level.OFF); // changed to finer to use line 111 below. then off
+		databaseLog.setUseParentHandlers(false);
 	}
 
 	public ArrayList<Seat> getSeats() {
@@ -75,6 +97,7 @@ public class Database {
 	
 	//add a ticket
 	public String addTicket(LocalDate departureDate, String passengerName, int flightNumber, int seatNumber) {
+		databaseLog.fine("Ticket creation initiated");
 		//loop through and find passenger object
 		Passenger ticketPassenger = null;
 		for(Passenger item : getPassengers()) {
@@ -85,6 +108,7 @@ public class Database {
 		//find flight object
 		Flight ticketFlight = null;
 		for(Flight item: getFlights()) {
+			databaseLog.finer("comparing "+flightNumber + " to flight "+item.getFlightNumber());
 			if(flightNumber == item.getFlightNumber()) {
 				ticketFlight = item;
 			}
@@ -105,6 +129,8 @@ public class Database {
 		tempTicket.setFlight(ticketFlight);
 		tempTicket.setSeat(ticketSeat);
 		tickets.add(tempTicket);
+		//
+		databaseLog.info("Ticket created");
 		
 		return tempTicket.toString();
 	}
@@ -122,6 +148,44 @@ public class Database {
 		addFlight(1010, "Chicago", "New York");
 		addFlight(2000, "New York", "Chicago");
 		addFlight(2010, "Chicago", "New York");
+		
+	}
+	
+	//read flights information from csv file
+	public void  bootStrapCSV() {
+		try {
+			BufferedReader flightImport = new BufferedReader(new FileReader("/Users/Main/git/FlightReservations/FlightReservations/import/flights.csv"));
+			String flightLine = null;
+			try {
+				while((flightLine = flightImport.readLine()) != null) {
+					System.out.println("Each Line: "+ flightLine);
+				}
+			} catch (IOException e1) {
+				System.out.println("Cannot read file.");
+			}
+			try {
+				flightImport.close();
+			} catch (IOException e) {
+				System.out.println("Cannot close file");
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found!");
+		}
+	}
+	//export data to file
+	public void exportSeats() {
+		
+		try {
+			BufferedWriter seatsExport = new BufferedWriter(new FileWriter("/Users/Main/git/FlightReservations/FlightReservations/export/seats.csv"));
+			for( Seat item: getSeats()) {
+				seatsExport.write(item.toString() +"\n");
+			}
+			seatsExport.close();
+			System.out.println("File Exported.");
+		} catch (IOException e) {
+			System.out.println("Cannot write to file");
+		}  
+
 		
 	}
 

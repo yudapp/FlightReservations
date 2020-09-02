@@ -55,12 +55,5 @@ class DatabaseTest {
 		assertEquals(4, testDB7.getFlights().size());
 	}
 	
-	@Test
-	public void testAddTicket() {
-		Database testDB5 = new Database();
-		testDB5.addSeat(2);
-		testDB5.addFlight(100, "kattegat", "London");
-		testDB5.addPassenger("Yudhi");
-		//testDB5.addTicket()
-	}
+ 
 }
