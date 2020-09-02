@@ -26,9 +26,8 @@ public class Flight {
 	}
 
 	//toString method
-	@Override
 	public String toString() {
-		return flightNumber+" "+departureCity+" "+arrivalCity;
+		return this.getFlightNumber()+": "+this.getDepartureCity()+" - "+this.getArrivalCity();
 	}
 	//Getters and Setters
 	public String getDepartureCity() {

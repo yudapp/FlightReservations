@@ -1,3 +1,10 @@
+/**
+ * Console.java
+ * @author Yudhi
+ * Book a ticket: Run this class in the console or create a jar file to run in the terminal
+ * TODO: implement methods to advise user when there is no more ticket left.
+ */
+
 package com.airplanes.reservations;
 
 import java.io.BufferedReader;

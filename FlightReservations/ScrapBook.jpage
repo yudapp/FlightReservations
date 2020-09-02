@@ -1,8 +1,2 @@
- Database testDB = new Database();
-testDB.bootstrap();
-testDB.addPassenger("Yudhi");
-String result = testDB.addTicket(LocalDate.now(), "Yudhi", 1000, 1);
-System.out.println(result);
-
-ArrayList<Seat> seatsRemaining = testDB.getOpenSeats(LocalDate.now(), 1000);
-System.out.println(seatsRemaining);
+CharterFlight cf = new CharterFlight(6010, "San Diego", "San Francisco", "2014-06-15T09:30");
+System.out.println(cf.toString());
